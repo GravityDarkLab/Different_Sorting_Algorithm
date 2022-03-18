@@ -1,1 +1,8 @@
-# Different_Sorting_Algorithm
+🚀 Speed difference between different Sorting Algorithm 🚀
+
+  🔴 Bubblesort
+  🔴 Insertionsort
+  🔴 Selectionsort
+  🔴 Quicksort
+  🔴 Mergesort 
+  🔴 Radixsort
