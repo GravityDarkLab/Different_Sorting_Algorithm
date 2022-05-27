@@ -1,12 +1,13 @@
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
 
 	private static int[] initialise() {
 		Random random = new Random();
-		int[] tab = new int[150];
+		int[] tab = new int[100000];
 		for (int i = 0; i < tab.length; i++) {
 			tab[i] = random.nextInt(9999);
 		}
@@ -32,21 +33,21 @@ public class Main {
 		long start = System.nanoTime();
 		BubbleSort.BSort(arrayB);
 		long finish = System.nanoTime();
-		long timeElapsed = finish - start;
-		System.out.println("BubbleSort: " + timeElapsed + "ns");
+		long timeElapsed = TimeUnit.NANOSECONDS.toMillis(finish - start);
+		System.out.println("BubbleSort: " + timeElapsed + "ms");
 		leaderboard.put("Bubble Sort", timeElapsed);
 		/* ----------InsertionSort------------- */
 		start = System.nanoTime();
 		InsertionSort.InSort(arrayI);
 		finish = System.nanoTime();
-		timeElapsed = finish - start;
-		System.out.println("InsertionSort: " + timeElapsed + "ns");
+		timeElapsed = TimeUnit.NANOSECONDS.toMillis(finish - start);
+		System.out.println("InsertionSort: " + timeElapsed + "ms");
 		leaderboard.put("Insertion Sort", timeElapsed);
 		/* ----------SelectionSort------------- */
 		start = System.nanoTime();
 		SelectionSort.SSort(arrayS);
 		finish = System.nanoTime();
-		timeElapsed = finish - start;
+		timeElapsed = TimeUnit.NANOSECONDS.toMillis(finish - start);
 		System.out.println("SelectionSort: " + timeElapsed + "ns");
 		leaderboard.put("Selection Sort", timeElapsed);
 		/* ----------MergeSort------------- */
@@ -54,7 +55,7 @@ public class Main {
 		start = System.nanoTime();
 		MergeSort.MSort(0, arrayM.length - 1);
 		finish = System.nanoTime();
-		timeElapsed = finish - start;
+		timeElapsed = TimeUnit.NANOSECONDS.toMillis(finish - start);
 		System.out.println("MergeSort: " + timeElapsed + "ns");
 		leaderboard.put("Merge Sort", timeElapsed);
 
@@ -62,14 +63,14 @@ public class Main {
 		start = System.nanoTime();
 		QuickSort.Qsort(arrayQ, 0, arrayQ.length - 1);
 		finish = System.nanoTime();
-		timeElapsed = finish - start;
+		timeElapsed = TimeUnit.NANOSECONDS.toMillis(finish - start);
 		System.out.println("QuickSort: " + timeElapsed + "ns");
 		leaderboard.put("Quick Sort", timeElapsed);
 		/* ----------RadixSort------------- */
 		start = System.nanoTime();
 		RadixSort.Rsort(arrayR, arrayR.length);
 		finish = System.nanoTime();
-		timeElapsed = finish - start;
+		timeElapsed = TimeUnit.NANOSECONDS.toMillis(finish - start);
 		System.out.println("RadixSort: " + timeElapsed + "ns");
 		leaderboard.put("Radix Sort", timeElapsed);
 
@@ -78,10 +79,13 @@ public class Main {
 		// print(arrayB, arrayI, arrayM, arrayQ, arrayS, arrayR);
 
 		System.out.println("\n ************* Leaderboard *************\n");
-		leaderboard.entrySet().stream().sorted(Map.Entry.comparingByValue()).forEach(System.out::println);
-
+		leaderboard.entrySet().stream().sorted(Map.Entry.comparingByValue())
+				.forEach(e -> System.out.println(e.getKey() + " : " + e.getValue() + " ms"));
 	}
 
+	private static void print(String entry, long value) {
+		System.out.println(entry + " : " + value + " ms");
+	}
 	private static void printArray(int[] tab) {
 		StringBuilder stringBuilder = new StringBuilder();
 		for (int j : tab) {
